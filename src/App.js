@@ -1,13 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header/Header'
+import planets from './data.json'
 
 function App() {
+  console.log(planets)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <Header />
+        <h1>{planets[0].name}</h1> 
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+        {planets[0].geology.content}
         </p>
         <a
           className="App-link"
@@ -17,7 +18,6 @@ function App() {
         >
           Learn React
         </a>
-      </header>
     </div>
   );
 }
