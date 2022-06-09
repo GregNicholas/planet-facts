@@ -2,27 +2,34 @@ import React, { useState } from "react"
 import { NavComponent } from "../FullNavbar/FullNavbar"
 import styled from 'styled-components'
 
-const SmallNavComp = styled(NavComponent)`
-    border: 2px solid magenta;
+const MobileNavContainer = styled.div`
+    overflow: hidden;
+`
+const Button = styled.button`
+    border: none;
+    background: none;
+    color: magenta;
+    font-size: 2rem;
+    padding: 0;
+    margin-top: 10px;
 `
 
 const SmallNavbar = () => {
   let [translate, setTranslate] = useState(true);
   return (
       <div>
-        <button
+        <Button
           onClick={() => setTranslate(!translate)}
         >
           {translate ? <span>&#9776;</span> : <span>&times;</span>}
-        </button>
-        <div
-          id="sidebar-list"
-          className={`${translate ? "addTransiton" : "removeTransition"}`}
-        >
-          <SmallNavComp
-            onClick={() => setTranslate(true)} //set translate to true to hide the sidebar list
+        </Button>
+        <MobileNavContainer>
+          <NavComponent
+            translate={translate}
+            setTranslate={setTranslate} //set translate to true to hide the sidebar list
+            mobile={true}
           />
-        </div>
+        </MobileNavContainer>
       </div>
   );
 };

@@ -8,6 +8,7 @@ import { useWindowWidth } from '../../customHooks/useWindowWidth'
 // import "../styles/navbar.css";
 
 const HeaderElement = styled.header`
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,11 +17,16 @@ const HeaderElement = styled.header`
   color: white;
   border-bottom: 1px solid rgba(255, 255, 255, .2);
 
-  @media (max-width: 830px) and (min-width: 480px) {
+  @media (max-width: 830px) {
     flex-direction: column;
     height: 160px;
     justify-content: space-around;
     padding: 0 20px;
+  }
+  @media (max-width: 500px){
+    height: 68px;
+    flex-direction: row;
+    justify-content: space-between;
   }
 `
 const Title = styled(Link)`
@@ -40,6 +46,7 @@ const NavLink = styled(Link)`
   &.active {
     color: #000000;
   }
+  
 `;
 
 const Header = () => {

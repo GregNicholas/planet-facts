@@ -1,7 +1,8 @@
-const Mercury = () => {
-    
+import PlanetPage from '../components/PlanetPage/PlanetPage'
+
+const Mercury = ({ planet }) => {
     return (
-        <h1>Mercury</h1>
+        <PlanetPage planet={planet} width="111" />
     )
 }
 

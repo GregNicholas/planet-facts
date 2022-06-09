@@ -1,9 +1,9 @@
 import PlanetPage from '../components/PlanetPage/PlanetPage'
 
-const Earth = () => {
+const Earth = ({ planet }) => {
     
     return (
-        <PlanetPage planet={{name: "Earth"}} />
+        <PlanetPage planet={planet} width="173" />
     )
 }
 
