@@ -4,6 +4,7 @@ font-family: 'League Spartan', sans-serif; */
 
 *, *::before, *::after {
     box-sizing: border-box;
+    color: white;
   }
 
   * {
@@ -13,11 +14,13 @@ font-family: 'League Spartan', sans-serif; */
   html, body {
     height: 100%;
     font-family: 'League Spartan', sans-serif;
+    
   }
 
   body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    background: rgb(0, 0, 44)
   }
 
   img, picture, video, canvas, svg {
