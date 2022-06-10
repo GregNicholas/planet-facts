@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
+import {FaExternalLinkSquareAlt} from 'react-icons/fa'
 // import planetImg from '../../assets/planet-mercury.svg'
 
 const SelectInfo = styled.ul`
@@ -26,16 +27,89 @@ const InfoItem = styled.li`
         opacity: 100%;
     }
 `
-const ImageContainer = styled.div`
-    margin: ${props => (304 - props.width)/2}px auto; 
-    width: ${props => props.width}px;
+const ImageBlock = styled.div`
+    height: 305px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: 501px) and (max-width: 830px) {
+        height: 460px
+      }
+    @media (min-width: 831px) {
+        height: 655px;
+    }
+`
+const ImageContainer = styled.div` 
+    width: ${props => props.width.mobile}px;
+
+    @media (min-width: 501px) and (max-width: 830px) {
+      width: ${props => props.width.tablet}px;
+    }
+    @media (min-width: 831px) {
+        width: ${props => props.width.full}px;
+      }
+`
+const PlanetInfo = styled.section`
+      margin: auto;
+      text-align: center;
+      font-size: 0.8rem;
+      margin: 0 1.5rem 1.5rem 1.5rem;
+`
+const PlanetName = styled.h1`
+      font-family: 'Antonio', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+`
+const PlanetContent = styled.p`
+      line-height: 1.4rem;
+      margin-bottom: 2rem;
+      letter-spacing: 0.1px;
+`
+const Source = styled.p`
+      font-weight: 400;
+`
+const WikiLink = styled.a`
+      font-weight: 700;
+      display: inline-flex;
+      gap: 0.25rem;
+      align-items: center;
+      text-decoration: underline;
+      cursor: pointer;
+`
+const Stats = styled.section`
+      margin: 0 1.5rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+`
+const StatItem = styled.div`
+    height: 3rem;
+    border: 1px solid rgba(255, 255, 255, .2);
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+const StatName = styled.span`
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    opacity: 50%;
+    letter-spacing: .75px;
+`
+const Stat = styled.span`
+    font-family: 'Antonio';
+    font-size: 1.25rem;
+    letter-spacing: -.75px;
+    text-transform: uppercase;
 `
 
 const PlanetPage = ({ planet, width }) => {
     const [image, setImage] = useState(planet.images.planet.substring(1))
     const [info, setInfo] = useState('overview')
-    console.log(info)
-    console.log(planet)
     return (
         <>
             <SelectInfo>
@@ -43,20 +117,24 @@ const PlanetPage = ({ planet, width }) => {
                 <InfoItem selected={info === 'structure'} onClick={() => setInfo('structure')}>structure</InfoItem>
                 <InfoItem selected={info === 'geology'} onClick={() => setInfo('geology')}>surface</InfoItem>
             </SelectInfo>
-            <ImageContainer width={width}>
-                <img src={`${process.env.PUBLIC_URL}${image}`} alt="planet" />
-            </ImageContainer>
-            <h1>{planet.name}</h1>
-            <p>{planet[info].content}</p>
-            <p>Source: <a href={info.source}>Wikipedia</a></p>
-            <section>
-                <div><span>rotation time</span><span>{planet.rotation}</span></div>
-                <div><span>revolution time</span><span>{planet.revolution}</span></div>
-                <div><span>radius</span><span>{planet.radius}</span></div>
-                <div><span>average temp.</span><span>{planet.temperature}</span></div>
-            </section>
+            <ImageBlock>
+                <ImageContainer width={width}>
+                    <img src={`${process.env.PUBLIC_URL}${image}`} alt="planet" />
+                </ImageContainer>
+            </ImageBlock>
+            <PlanetInfo>
+                <PlanetName>{planet.name}</PlanetName>
+                <PlanetContent>{planet[info].content}</PlanetContent>
+                <Source>Source : <WikiLink href={planet[info].source} target="_blank">Wikipedia <FaExternalLinkSquareAlt/></WikiLink></Source>
+            </PlanetInfo>
+            
+            <Stats>
+                <StatItem><StatName>rotation time</StatName><Stat>{planet.rotation}</Stat></StatItem>
+                <StatItem><StatName>revolution time</StatName><Stat>{planet.revolution}</Stat></StatItem>
+                <StatItem><StatName>radius</StatName><Stat>{planet.radius}</Stat></StatItem>
+                <StatItem><StatName>average temp.</StatName><Stat>{planet.temperature}</Stat></StatItem>
+            </Stats>
         </>
-
     )
 }
 

@@ -1,7 +1,9 @@
-const Uranus = () => {
+import PlanetPage from '../components/PlanetPage/PlanetPage'
+
+const Uranus = ({ planet }) => {
     
     return (
-        <h1>Uranus</h1>
+        <PlanetPage planet={planet}  width={{mobile: "173", tablet: "285", full: "450"}} />
     )
 }
 
