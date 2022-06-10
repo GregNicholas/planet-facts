@@ -20,7 +20,8 @@ font-family: 'League Spartan', sans-serif; */
   body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    background: rgb(0, 0, 44)
+    background: rgb(0, 0, 44);
+    background-image: url('/public/assets/background-stars.svg')
   }
 
   img, picture, video, canvas, svg {
