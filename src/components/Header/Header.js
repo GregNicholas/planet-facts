@@ -17,13 +17,13 @@ const HeaderElement = styled.header`
   color: white;
   border-bottom: 1px solid rgba(255, 255, 255, .2);
 
-  @media (max-width: 830px) {
+  @media (max-width: 1024px) {
     flex-direction: column;
     height: 160px;
     justify-content: space-around;
     padding: 0 20px;
   }
-  @media (max-width: 500px){
+  @media (max-width: 768px){
     height: 68px;
     flex-direction: row;
     justify-content: space-between;
@@ -52,13 +52,12 @@ const NavLink = styled(Link)`
 const Header = () => {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const width = useWindowWidth()
-console.log(width)
   return (
     <HeaderElement>
       <Title to={"/home"}>
           THE PLANETS
       </Title>
-        { width > 500 ? 
+        { width > 768 ? 
             <FullNavbar />
             :
             <MobileNavbar />

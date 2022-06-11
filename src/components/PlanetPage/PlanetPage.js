@@ -1,46 +1,73 @@
 import { useState } from 'react'
+import { useWindowWidth } from '../../customHooks/useWindowWidth'
 import styled from 'styled-components'
 import {FaExternalLinkSquareAlt} from 'react-icons/fa'
 // import planetImg from '../../assets/planet-mercury.svg'
 
 const Container = styled.main`
-    display: grid;
+display: grid;
+    @media (min-width: 768px){
+        margin: 0 2rem 2rem 2rem;
+        gap: 0 1rem;
+        
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto auto auto auto;
+    }
 
-    @media (min-width: 831px){
+    @media (min-width: 1024px){
         margin: 3rem 7rem;
         gap: 0 1rem;
     }
 `
-const SelectInfo = styled.ul`
+const SelectInfo = styled.section`
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    @media (min-width: 768px){
+        grid-row: 5 / span 2;
+        grid-column: 2 / span 1;
+        flex-direction: column;
+        border: none;
+        margin-left: 2.5rem;
+    }
+`
+const InfoList = styled.ul`
     list-style-type: none;
+    height: 50px;
     padding: 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 50px;
     text-transform: uppercase;
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 1.9px;
-    border-bottom: 1px solid rgba(255, 255, 255, .2);
 
-    @media (min-width: 831px){
-        grid-row: 2 / span 1;
-        grid-column: 3 / span 1;
+    @media (min-width: 768px){
         flex-direction: column;
-        border: none;
+        height: fit-content;
+        gap: 1rem;
     }
+    
 `
 const InfoItem = styled.li`
     border-bottom: ${props => !props.selected ? "none" : "4px solid #419EBB"};
-    padding: auto 9px;
-    padding: 16px 5px;
+    padding: 0 1.25rem;
     height: -webkit-fill-available;
     cursor: pointer;
     opacity: ${props => props.selected ? "100%" : "60%"};
+    display: flex;
+    gap: 1rem;
+    align-items: center;
     &:hover {
         opacity: 100%;
     }
+    @media (min-width: 768px){
+        width: 100%;
+        height: 2.5rem;
+        border: 1px solid rgba(255, 255, 255, .2);
+    }
+    
 `
 const ImageBlock = styled.div`
     height: 305px;
@@ -48,10 +75,12 @@ const ImageBlock = styled.div`
     align-items: center;
     justify-content: center;
 
-    @media (min-width: 501px) and (max-width: 830px) {
+    @media (min-width: 768px) and (max-width: 1024px) {
         height: 460px;
+        grid-row: 1 / span 4;
+        grid-column: 1 / span 2;
       }
-    @media (min-width: 831px) {
+    @media (min-width: 1024px) {
         height: 655px;
         grid-row: 1 / span 2;
         grid-column: 1 / span 2;
@@ -60,10 +89,10 @@ const ImageBlock = styled.div`
 const ImageContainer = styled.div` 
     width: ${props => props.width.mobile}px;
 
-    @media (min-width: 501px) and (max-width: 830px) {
+    @media (min-width: 768px) and (max-width: 1024px) {
       width: ${props => props.width.tablet}px;
     }
-    @media (min-width: 831px) {
+    @media (min-width: 1024px) {
         width: ${props => props.width.full}px;
       }
 `
@@ -73,9 +102,9 @@ const PlanetInfo = styled.section`
       font-size: 0.8rem;
       margin: 0 1.5rem 1.5rem 1.5rem;
 
-      @media (min-width: 831px){
-        grid-row: 1 / span 1;
-        grid-column: 3 / span 1;
+      @media (min-width: 768px){
+        grid-row: 5 / span 2;
+        grid-column: 1 / span 1;
     }
 `
 const PlanetName = styled.h1`
@@ -107,9 +136,9 @@ const Stats = styled.section`
       flex-direction: column;
       gap: 0.5rem;
 
-      @media (min-width: 831px){
-        grid-row: 3 / span 1;
-        grid-column: 1 / span 3;
+      @media (min-width: 768px){
+        grid-row: 7 / span 1;
+        grid-column: 1 / span 2;
         flex-direction: row;
         gap: 1rem;
         margin: 0;
@@ -123,7 +152,7 @@ const StatItem = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    @media (min-width: 501px){
+    @media (min-width: 738px){
         flex-direction: column;
         flex-direction: column;
         width: 100%;
@@ -149,12 +178,19 @@ const Stat = styled.span`
 const PlanetPage = ({ planet, width }) => {
     const [image, setImage] = useState(planet.images.planet.substring(1))
     const [info, setInfo] = useState('overview')
+    const screenWidth = useWindowWidth()
     return (
         <Container>
             <SelectInfo>
-                <InfoItem selected={info === 'overview'} onClick={() => setInfo('overview')}>overview</InfoItem>
-                <InfoItem selected={info === 'structure'} onClick={() => setInfo('structure')}>structure</InfoItem>
-                <InfoItem selected={info === 'geology'} onClick={() => setInfo('geology')}>surface</InfoItem>
+                <InfoList>
+                    <InfoItem selected={info === 'overview'} onClick={() => setInfo('overview')}>overview</InfoItem>
+                    <InfoItem selected={info === 'structure'} onClick={() => setInfo('structure')}>
+                        {screenWidth < 768 ? 'internal' : <><span>02</span> <span>internal structure</span></>}
+                    </InfoItem>
+                    <InfoItem selected={info === 'geology'} onClick={() => setInfo('geology')}>
+                        {screenWidth < 768 ? 'surface' : <><span>03</span> <span>internal structure</span></>}
+                    </InfoItem>
+                </InfoList>
             </SelectInfo>
             <ImageBlock>
                 <ImageContainer width={width}>
@@ -166,7 +202,7 @@ const PlanetPage = ({ planet, width }) => {
                 <PlanetContent>{planet[info].content}</PlanetContent>
                 <Source>Source : <WikiLink href={planet[info].source} target="_blank">Wikipedia <FaExternalLinkSquareAlt/></WikiLink></Source>
             </PlanetInfo>
-=            <Stats>
+            <Stats>
                 <StatItem><StatName>rotation time</StatName><Stat>{planet.rotation}</Stat></StatItem>
                 <StatItem><StatName>revolution time</StatName><Stat>{planet.revolution}</Stat></StatItem>
                 <StatItem><StatName>radius</StatName><Stat>{planet.radius}</Stat></StatItem>
