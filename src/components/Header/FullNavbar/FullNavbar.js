@@ -48,14 +48,15 @@ const LinkItem = styled.span`
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
-  opacity: 75%; 
+  opacity: ${props => props.selected === props.title ? "1" : ".75"}; 
   padding: 32px 0;
   
   @media (min-width: 768px){
     font-size: 0.75rem;
-    &:active, &:hover {
-      border-top: 4px solid #EDA249;
-    }
+    // &:active, &:hover {
+    //   border-top: 4px solid #EDA249;
+    // }
+    border-top: ${props => props.selected === props.title ? "4px solid rgba(237,162,73, 1)" : "none"};
   }
 
   @media (max-width: 768px){
@@ -75,6 +76,7 @@ const FullNavbar = () => {
 };
 
 export const NavComponent = ({ translate, setTranslate, mobile=false }) => {
+  const [selected, setSelected] = useState(null)
   return (
     <Nav translate={translate}>
       {[
@@ -82,11 +84,17 @@ export const NavComponent = ({ translate, setTranslate, mobile=false }) => {
        ].map((title) => (
         <Links
           key={title}
-          onClick={() => mobile ? setTranslate(true) : null}
+          onClick={() => {
+            // return mobile ? setTranslate(true) : null
+            setSelected(title)
+            if(mobile){
+              setTranslate(true)
+            }
+          }}
           to={`/${title.toLowerCase()}`}
         >
           <LinkSpace />
-          <LinkItem>{title}</LinkItem>
+          <LinkItem selected={selected} title={title}>{title}</LinkItem>
         </Links>
       ))}
     </Nav>

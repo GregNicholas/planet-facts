@@ -8,7 +8,6 @@ const Container = styled.main`
 display: grid;
     @media (min-width: 768px){
         margin: 0 2rem 2rem 2rem;
-        gap: 0 1rem;
         
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto auto auto auto auto auto;
@@ -21,14 +20,14 @@ display: grid;
 `
 const SelectInfo = styled.section`
     height: 50px;
-    width: 100%;
     border-bottom: 1px solid rgba(255, 255, 255, .2);
     @media (min-width: 768px){
         grid-row: 5 / span 2;
         grid-column: 2 / span 1;
         flex-direction: column;
         border: none;
-        margin-left: 2.5rem;
+        margin-left: 20%;
+        margin-top: 3rem;
     }
 `
 const InfoList = styled.ul`
@@ -65,7 +64,9 @@ const InfoItem = styled.li`
     @media (min-width: 768px){
         width: 100%;
         height: 2.5rem;
-        border: 1px solid rgba(255, 255, 255, .2);
+        border: ${props => !props.selected ? "1px solid rgba(255, 255, 255, .2)" : "none"};
+        background: ${props => !props.selected ? "none" : props.planetColor};
+        opacity: 100%;
     }
     
 `
@@ -105,6 +106,8 @@ const PlanetInfo = styled.section`
       @media (min-width: 768px){
         grid-row: 5 / span 2;
         grid-column: 1 / span 1;
+        margin: 0 0 1.5rem 0;
+        text-align: left;
     }
 `
 const PlanetName = styled.h1`
@@ -118,9 +121,11 @@ const PlanetContent = styled.p`
       line-height: 1.4rem;
       margin-bottom: 2rem;
       letter-spacing: 0.1px;
+      opacity: .6;
 `
 const Source = styled.p`
       font-weight: 400;
+      opacity: .6;
 `
 const WikiLink = styled.a`
       font-weight: 700;
@@ -161,6 +166,9 @@ const StatItem = styled.div`
         padding: 0.5rem 1.2rem;
     }
 `
+const StatIndex = styled.span`
+    opacity: .5;
+`
 const StatName = styled.span`
     font-size: .7rem;
     font-weight: 700;
@@ -175,7 +183,7 @@ const Stat = styled.span`
     text-transform: uppercase;
 `
 
-const PlanetPage = ({ planet, width }) => {
+const PlanetPage = ({ planet, width, planetColor="navy" }) => {
     const [image, setImage] = useState(planet.images.planet.substring(1))
     const [info, setInfo] = useState('overview')
     const screenWidth = useWindowWidth()
@@ -183,12 +191,14 @@ const PlanetPage = ({ planet, width }) => {
         <Container>
             <SelectInfo>
                 <InfoList>
-                    <InfoItem selected={info === 'overview'} onClick={() => setInfo('overview')}>overview</InfoItem>
-                    <InfoItem selected={info === 'structure'} onClick={() => setInfo('structure')}>
-                        {screenWidth < 768 ? 'internal' : <><span>02</span> <span>internal structure</span></>}
+                    <InfoItem selected={info === 'overview'} planetColor={planetColor} onClick={() => setInfo('overview')}>
+                        {screenWidth < 768 ? 'internal' : <><StatIndex>01</StatIndex> <span>overview</span></>}
                     </InfoItem>
-                    <InfoItem selected={info === 'geology'} onClick={() => setInfo('geology')}>
-                        {screenWidth < 768 ? 'surface' : <><span>03</span> <span>internal structure</span></>}
+                    <InfoItem selected={info === 'structure'} planetColor={planetColor} onClick={() => setInfo('structure')}>
+                        {screenWidth < 768 ? 'internal' : <><StatIndex>02</StatIndex> <span>internal structure</span></>}
+                    </InfoItem>
+                    <InfoItem selected={info === 'geology'} planetColor={planetColor} onClick={() => setInfo('geology')}>
+                        {screenWidth < 768 ? 'surface' : <><StatIndex>03</StatIndex> <span>surface geology</span></>}
                     </InfoItem>
                 </InfoList>
             </SelectInfo>
