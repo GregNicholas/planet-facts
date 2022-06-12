@@ -65,7 +65,7 @@ const InfoItem = styled.li`
         width: 100%;
         height: 2.5rem;
         border: ${props => !props.selected ? "1px solid rgba(255, 255, 255, .2)" : "none"};
-        background: ${props => !props.selected ? "none" : props.planetColor};
+        background: ${props => !props.selected ? "none" : props.color};
         opacity: 100%;
     }
     
@@ -88,13 +88,13 @@ const ImageBlock = styled.div`
     }
 `
 const ImageContainer = styled.div` 
-    width: ${props => props.width.mobile}px;
+    width: ${props => props.width.mobile};
 
     @media (min-width: 768px) and (max-width: 1024px) {
-      width: ${props => props.width.tablet}px;
+      width: ${props => props.width.tablet};
     }
     @media (min-width: 1024px) {
-        width: ${props => props.width.full}px;
+        width: ${props => props.width.desktop};
       }
 `
 const PlanetInfo = styled.section`
@@ -183,7 +183,7 @@ const Stat = styled.span`
     text-transform: uppercase;
 `
 
-const PlanetPage = ({ planet, width, planetColor="navy" }) => {
+const PlanetPage = ({ planet }) => {
     const [image, setImage] = useState(planet.images.planet.substring(1))
     const [info, setInfo] = useState('overview')
     const screenWidth = useWindowWidth()
@@ -191,19 +191,19 @@ const PlanetPage = ({ planet, width, planetColor="navy" }) => {
         <Container>
             <SelectInfo>
                 <InfoList>
-                    <InfoItem selected={info === 'overview'} planetColor={planetColor} onClick={() => setInfo('overview')}>
+                    <InfoItem selected={info === 'overview'} color={planet.color.secondary} onClick={() => setInfo('overview')}>
                         {screenWidth < 768 ? 'internal' : <><StatIndex>01</StatIndex> <span>overview</span></>}
                     </InfoItem>
-                    <InfoItem selected={info === 'structure'} planetColor={planetColor} onClick={() => setInfo('structure')}>
+                    <InfoItem selected={info === 'structure'} color={planet.color.secondary} onClick={() => setInfo('structure')}>
                         {screenWidth < 768 ? 'internal' : <><StatIndex>02</StatIndex> <span>internal structure</span></>}
                     </InfoItem>
-                    <InfoItem selected={info === 'geology'} planetColor={planetColor} onClick={() => setInfo('geology')}>
+                    <InfoItem selected={info === 'geology'} color={planet.color.secondary} onClick={() => setInfo('geology')}>
                         {screenWidth < 768 ? 'surface' : <><StatIndex>03</StatIndex> <span>surface geology</span></>}
                     </InfoItem>
                 </InfoList>
             </SelectInfo>
             <ImageBlock>
-                <ImageContainer width={width}>
+                <ImageContainer width={planet.imgWidth}>
                     <img src={`${process.env.PUBLIC_URL}${image}`} alt="planet" />
                 </ImageContainer>
             </ImageBlock>

@@ -9,7 +9,7 @@ import Mars from './pages/Mars'
 import Jupiter from './pages/Jupiter'
 import Saturn from './pages/Saturn'
 import Uranus from './pages/Uranus'
-import Neptune from './pages/Mercury'
+import Neptune from './pages/Neptune'
 import planets from './data.json'
 
 function App() {
