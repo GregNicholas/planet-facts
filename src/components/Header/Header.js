@@ -14,6 +14,7 @@ const HeaderElement = styled.header`
   align-items: center;
   padding: 0 32px;
   height: 85px;
+  width: 100vw;
   color: white;
   border-bottom: 1px solid rgba(255, 255, 255, .2);
 
