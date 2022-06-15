@@ -18,7 +18,7 @@ function App() {
       <Router>
         <Header />
           <Routes>
-            <Route exact path="/" element={<Earth planet={planets[2]}/>} />
+            <Route exact path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/mercury" element={<Mercury planet={planets[0]}/>} />
             <Route path="/venus" element={<Venus planet={planets[1]}/>} />

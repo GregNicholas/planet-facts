@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useWindowWidth } from "../../customHooks/useWindowWidth";
 import styled from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaExternalLinkSquareAlt } from "react-icons/fa";
 // import planetImg from '../../assets/planet-mercury.svg'
 
@@ -84,7 +85,7 @@ const InfoItem = styled.li`
     height: 3rem;
   }
 `;
-const ImageBlock = styled.div`
+const ImageBlock = styled(motion.div)`
   height: 305px;
   display: flex;
   align-items: center;
@@ -101,7 +102,7 @@ const ImageBlock = styled.div`
     grid-column: 1 / span 1;
   }
 `;
-const ImageContainer = styled.div`
+const ImageContainer = styled(motion.div)`
   position: relative;
   width: ${(props) => props.width.mobile};
 
@@ -112,7 +113,7 @@ const ImageContainer = styled.div`
     width: ${(props) => props.width.desktop};
   }
 `;
-const GeologyImg = styled.img`
+const GeologyImg = styled(motion.img)`
   width: ${(props) => `${parseInt(props.width.mobile.slice(0,props.width.mobile.length-2))*0.8}px`};
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -302,18 +303,28 @@ const PlanetPage = ({ planet }) => {
           </InfoItem>
         </InfoList>
       </SelectInfo>
-      <ImageBlock>
-        <ImageContainer width={planet.imgWidth}>
-          <img src={`${process.env.PUBLIC_URL}${image}`} alt="planet" />
-          {/* //put overlay image here */}
-          {info === "geology" && 
-                <GeologyImg width={planet.imgWidth} 
-                    src={`${process.env.PUBLIC_URL}/assets/geology-${planet.name.toLowerCase()}.png`} 
-                    alt="planet" 
-                />
-          }
-        </ImageContainer>
-      </ImageBlock>
+        <ImageBlock 
+            initial={{x: "-100%"}}
+            animate={{x: 0, rotate: 360}}
+            exit={{x: "100%", opacity: 0}}
+            transition={{duration: 0.5, ease: "easeOut"}}>
+            <ImageContainer width={planet.imgWidth}>
+                <motion.img drag src={`${process.env.PUBLIC_URL}${image}`} alt="planet" />
+              <AnimatePresence>
+                {info === "geology" && 
+                        <GeologyImg width={planet.imgWidth} 
+                            key="geologyImage"
+                            src={`${process.env.PUBLIC_URL}/assets/geology-${planet.name.toLowerCase()}.png`} 
+                            alt="planet" 
+                            drag
+                            initial={{x:"-100%"}}
+                            animate={{rotate:360, x: "-50%"}}
+                            exit={{scale: 0}}
+                        />
+                }
+              </AnimatePresence>
+            </ImageContainer>
+        </ImageBlock>
       <PlanetInfo>
         <PlanetName>{planet.name}</PlanetName>
         <PlanetContent>{planet[info].content}</PlanetContent>
