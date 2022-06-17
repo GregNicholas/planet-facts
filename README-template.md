@@ -18,6 +18,7 @@ This is a solution to the [Planets fact site challenge on Frontend Mentor](https
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
+- [Getting Started with create-react-app](#getting-started-with-create-react-app)
 
 ## Overview
 
@@ -67,3 +68,18 @@ Continue exploring best practices and file structure with Styled Components and 
 - Website - [Gregory Schoenberg](https://gregschoenberg.com)
 
 
+### Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
