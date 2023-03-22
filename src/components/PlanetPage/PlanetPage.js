@@ -309,7 +309,7 @@ const PlanetPage = ({ planet }) => {
             exit={{x: "100%", opacity: 0}}
             transition={{duration: 0.5, ease: "easeOut"}}>
             <ImageContainer width={planet.imgWidth}>
-                <motion.img drag src={`${process.env.PUBLIC_URL}${image}`} alt="planet" />
+                <motion.img drag dragSnapToOrigin={true} src={`${process.env.PUBLIC_URL}${image}`} alt="planet" />
               <AnimatePresence>
                 {info === "geology" && 
                         <GeologyImg width={planet.imgWidth} 
