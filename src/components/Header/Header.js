@@ -1,11 +1,9 @@
 // https://codesandbox.io/s/react-responsive-nav-3n3lu?file=/src/components/Navbar.js:0-1274
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import FullNavbar from './FullNavbar/FullNavbar'
 import MobileNavbar from './MobileNavbar/MobileNavbar'
 import styled from 'styled-components'
 import { useWindowWidth } from '../../customHooks/useWindowWidth'
-// import "../styles/navbar.css";
 
 const HeaderElement = styled.header`
   overflow: hidden;
@@ -36,22 +34,8 @@ const Title = styled(Link)`
   text-decoration: none;
   letter-spacing: -1px;
 `
-const NavLink = styled(Link)`
-  color: #808080;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  padding: 0 1rem;
-  height: 100%;
-  cursor: pointer;
-  &.active {
-    color: #000000;
-  }
-  
-`;
 
 const Header = () => {
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
   const width = useWindowWidth()
   return (
     <HeaderElement>
